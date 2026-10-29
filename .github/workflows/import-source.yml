@@ -17,5 +17,10 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/Raktim94/nodedr-restaurant-pos.git source
           cd source
+          rm -rf .github
+          git add -A
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Prepare Restaurant POS import"
           git remote add target "https://x-access-token:${GH_TOKEN}@github.com/${TARGET_REPOSITORY}.git"
           git push target HEAD:main --force
