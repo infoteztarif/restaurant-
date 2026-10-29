@@ -1,0 +1,21 @@
+name: One-time Restaurant POS import
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Import project once
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_REPOSITORY: ${{ github.repository }}
+        run: |
+          git clone --depth=1 https://github.com/Raktim94/nodedr-restaurant-pos.git source
+          cd source
+          git remote add target "https://x-access-token:${GH_TOKEN}@github.com/${TARGET_REPOSITORY}.git"
+          git push target HEAD:main --force
